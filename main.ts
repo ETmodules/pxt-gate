@@ -1,4 +1,4 @@
-//% color="#EEAA00" icon="\uf0f3"
+//% color="#EEAA00" icon="\uf09c"
 //% block="ET: Gate"
 //% block.loc.nl="ET: Gate"
 namespace EtGate {
