@@ -8,6 +8,15 @@ namespace EtGate {
     let SWITCH1 = false
     let SWITCH2 = false
 
+    export enum Gate {
+        //% block="free"
+        //% block.loc.nl="vrij"
+        Open,
+        //% block="occupied"
+        //% block.loc.nl="bezet"
+        Close
+    }
+
     export enum State {
         //% block="opens"
         //% block.loc.nl="opent"
@@ -16,6 +25,7 @@ namespace EtGate {
         //% block.loc.nl="sluit"
         Closes
     }
+
     let EventGateOpens: EtCommon.eventHandler
     let EventGateCloses: EtCommon.eventHandler
     let EventSwitch1Opens: EtCommon.eventHandler
@@ -78,24 +88,30 @@ namespace EtGate {
         MODULE = id
     }
 
-    //% block="switch 2 of %id is pressed"
-    //% block.loc.nl="schakelaar 2 van %id is ingedrukt"
+    //% block="switch 2 of %id is %state"
+    //% block.loc.nl="schakelaar 2 van %id is %state"
     //% id.defl="EtGate"
-    export function askSwitch2(id: string): boolean {
+    export function askSwitch2(id: string, state: State): boolean {
+        if (state == State.Opens)
+            return !SWITCH2
         return SWITCH2
     }
 
-    //% block="switch 1 of %id is pressed"
-    //% block.loc.nl="schakelaar 1 van %id is ingedrukt"
+    //% block="switch 1 of %id is %state"
+    //% block.loc.nl="schakelaar 1 van %id is %state"
     //% id.defl="EtGate"
-    export function askSwitch1(id: string): boolean {
+    export function askSwitch1(id: string, state: State): boolean {
+        if (state == State.Opens)
+            return !SWITCH1
         return SWITCH1
     }
 
-    //% block="the gate of %id is pressed"
-    //% block.loc.nl="de poort van %id is ingedrukt"
+    //% block="the gate of %id is %state"
+    //% block.loc.nl="de poort van %id %state is"
     //% id.defl="EtGate"
-    export function askGate(id: string): boolean {
+    export function askGate(id: string, state: Gate): boolean {
+        if (state == Gate.Open)
+            return !GATE
         return GATE
     }
 
@@ -127,11 +143,11 @@ namespace EtGate {
         }
     }
 
-    //% block="when the gate of %id %state"
-    //% block.loc.nl="wanneer de poort van %id %state"
+    //% block="when the gate of %id is %state"
+    //% block.loc.nl="wanneer de poort van %id %state is"
     //% id.defl="EtGate"
-    export function onGate(id: string, state: State, programmableCode: () => void): void {
-        if (state == State.Opens) {
+    export function onGate(id: string, state: Gate, programmableCode: () => void): void {
+        if (state == Gate.Open) {
             EtCommon.events.register(id, "gateopens", onEventGateOpens)
             EventGateOpens = programmableCode
         }
