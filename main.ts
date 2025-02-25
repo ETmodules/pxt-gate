@@ -33,19 +33,9 @@ namespace EtGate {
     let EventSwitch2Opens: EtCommon.eventHandler
     let EventSwitch2Closes: EtCommon.eventHandler
 
-    export function onGateOpens(id: string, value: string) {
-        GATE = false
-    }
-
-    export function onGateCloses(id: string, value: string) {
-        GATE = true
-    }
-
-    EtCommon.events.register(MODULE, "gateopens", onGateOpens)
-    EtCommon.events.register(MODULE, "gatecloses", onGateOpens)
-
     export function onEventGateOpens(id: string, value: string) {
         GATE = false
+basic.showString("f");
         if (EventGateOpens) {
             EventGateOpens(id)
         }
@@ -53,6 +43,7 @@ namespace EtGate {
 
     export function onEventGateCloses(id: string, value: string) {
         GATE = true
+basic.showString("t");
         if (EventGateCloses) {
             EventGateCloses(id)
         }
