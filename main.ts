@@ -87,7 +87,14 @@ basic.showString("t");
     //% block.loc.nl="stel de module id in op %id"
     //% id.defl="EtGate"
     export function setModuleId(id: string) {
+        EtCommon.events.unregister(MODULE)
         MODULE = id
+        EtCommon.events.register(id, "gateopens", onEventGateOpens)
+        EtCommon.events.register(id, "gatecloses", onEventGateCloses)
+        EtCommon.events.register(id, "sw1opens", onEventSwitch1Opens)
+        EtCommon.events.register(id, "sw1closes", onEventSwitch1Closes)
+        EtCommon.events.register(id, "sw2opens", onEventSwitch2Opens)
+        EtCommon.events.register(id, "sw2closes", onEventSwitch2Closes)
     }
 
     //% block="switch 2 of %id is %state"
@@ -150,13 +157,18 @@ basic.showString("t");
     //% id.defl="EtGate"
     export function onGate(id: string, state: Gate, programmableCode: () => void): void {
         if (state == Gate.Open) {
-            EtCommon.events.register(id, "gateopens", onEventGateOpens)
             EventGateOpens = programmableCode
         }
         else {
-            EtCommon.events.register(id, "gatecloses", onEventGateCloses)
             EventGateCloses = programmableCode
         }
     }
+
+    EtCommon.events.register(MODULE, "gateopens", onEventGateOpens)
+    EtCommon.events.register(MODULE, "gatecloses", onEventGateCloses)
+    EtCommon.events.register(MODULE, "sw1opens", onEventSwitch1Opens)
+    EtCommon.events.register(MODULE, "sw1closes", onEventSwitch1Closes)
+    EtCommon.events.register(MODULE, "sw2opens", onEventSwitch2Opens)
+    EtCommon.events.register(MODULE, "sw2closes", onEventSwitch2Closes)
 
 }
