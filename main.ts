@@ -4,7 +4,7 @@
 namespace EtGate {
     let MODULE = "EtGate"
 
-    let GATE = false
+    let GATE = true
     let SWITCH1 = false
     let SWITCH2 = false
 
