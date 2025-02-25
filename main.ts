@@ -35,7 +35,6 @@ namespace EtGate {
 
     export function onEventGateOpens(id: string, value: string) {
         GATE = false
-basic.showString("f");
         if (EventGateOpens) {
             EventGateOpens(id)
         }
@@ -43,7 +42,6 @@ basic.showString("f");
 
     export function onEventGateCloses(id: string, value: string) {
         GATE = true
-basic.showString("t");
         if (EventGateCloses) {
             EventGateCloses(id)
         }
